@@ -1,4 +1,9 @@
-import { Select, Input as NativeBaseInput, FormControl } from 'native-base'
+import {
+  Select,
+  Input as NativeBaseInput,
+  FormControl,
+  CheckIcon,
+} from 'native-base'
 import Colors from '../../styles/Colors'
 
 export function Type({ placeholder }) {
@@ -15,10 +20,14 @@ export function Type({ placeholder }) {
         placeholder={placeholder}
         mt={1}
         color={Colors.champagne}
+        _selectedItem={{
+          bg: 'teal.600',
+          endIcon: <CheckIcon size="5" />,
+        }}
         onValueChange={() => {}}
       >
         <Select.Item label="BPA" value="BPA" />
-        <Select.Item label="Antibiótico" value="Antibiótico" />
+        <Select.Item label="Antibiótico" value="Antibiotico" />
         <Select.Item label="BPF" value="BPF" />
       </Select>
     </FormControl>
