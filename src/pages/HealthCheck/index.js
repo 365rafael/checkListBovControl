@@ -1,6 +1,7 @@
-import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
+
+import {Container, TextList, Title, ButtonList} from './styles'
 
 export default function HealthCheck() {
   const [healthStatus, setHealtStatus] = useState({})
@@ -24,16 +25,17 @@ export default function HealthCheck() {
 
   if (loading) {
     return (
-      <View>
-        <Text>Carregando detalhes...</Text>
-      </View>
+     
+        <TextList>Carregando detalhes...</TextList>
+      
     )
   }
   return (
-    <View>
-      <Text>Status de saúde do gado:</Text>
-
-      <Text>{healthStatus.status}</Text>
-    </View>
+    <Container>
+      <Title>Status de saúde do gado:</Title>
+    <ButtonList>
+      <TextList>{healthStatus.status}</TextList>
+    </ButtonList>
+    </Container>
   )
 }

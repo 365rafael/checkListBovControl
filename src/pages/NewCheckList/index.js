@@ -6,9 +6,9 @@ import Colors from '../../styles/Colors'
 
 export default function NewCheckList({ placeholder }) {
   return (
-    <VStack bgColor={Colors.champagne} flex={1} px={10} mb={10}>
+    <VStack bgColor={Colors.champagneDark} flex={1} px={10} pb={10}>
       <Center>
-        <Heading my={10} color={Colors.asphalt}>
+        <Heading my={10} color={Colors.asphaltDark}>
           Check List
         </Heading>
         <Type placeholder="Tipo de checklist" />

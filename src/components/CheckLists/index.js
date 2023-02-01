@@ -1,5 +1,7 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
+
+import {Container, Title, ButtonList, TextList} from './styles'
 
 import api from '../../services/api'
 
@@ -51,6 +53,7 @@ import api from '../../services/api'
 //     updated_at: '2022-02-02T10:10:21.748Z',
 //   },
 // ]
+
 export default function CheckLists() {
   const [checks, setCheks] = useState([{}])
   const [loading, setLoading] = useState(true)
@@ -69,6 +72,7 @@ export default function CheckLists() {
     }
 
     loadCheckLists()
+    formatDate()
   }, [])
 
   if (loading) {
@@ -77,21 +81,31 @@ export default function CheckLists() {
         <Text>Carregando detalhes...</Text>
       </View>
     )
+
+  }
+  function formatDate(){
+    let dataCheck = Date(checks.updated_at)
+    let data = new Date(dataCheck)
+    let dataFormat = ((data.getDate() )) 
+    + "/" + ((data.getMonth() + 1)) 
+    + "/" + data.getFullYear(); 
+    return dataFormat
+   
   }
   return (
-    <View>
-      <Text>CheckLists Criados:</Text>
+    <Container>
+      <Title>CheckLists Criados:</Title>
       <FlatList
         data={checks}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View>
-            <TouchableOpacity>
-              <Text>{item.type}</Text>
-            </TouchableOpacity>
+            <ButtonList>
+              <TextList>{item.type} - Atualizado: {formatDate()}</TextList>
+            </ButtonList>
           </View>
         )}
       />
-    </View>
+    </Container>
   )
 }

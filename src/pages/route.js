@@ -20,7 +20,7 @@ function Routes() {
         tabBarInactiveTintColor: Colors.champagneDark,
 
         tabBarStyle: {
-          backgroundColor: Colors.blueDark,
+          backgroundColor: Colors.asphalt,
           borderTopColor: 'transparente',
           paddingBottom: 5,
           paddingTop: 5,
