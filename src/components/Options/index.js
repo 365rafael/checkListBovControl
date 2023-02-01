@@ -6,25 +6,25 @@ import {
 } from 'native-base'
 import Colors from '../../styles/Colors'
 
-export function Type({ placeholder }) {
+export function Type({ placeholder, onValueChange }) {
   return (
     <FormControl>
       <Select
         selectedValue={placeholder}
         bg={Colors.asphalt}
         fontSize="md"
-        h={16}
+        h={12}
         minWidth="full"
         borderRadius={6}
-        accessibilityLabel={placeholder}
-        placeholder={placeholder}
+        accessibilityLabel="Tipo de checklist"
+        placeholder="Tipo de checklist"
         mt={1}
         color={Colors.champagne}
         _selectedItem={{
           bg: 'teal.600',
           endIcon: <CheckIcon size="5" />,
         }}
-        onValueChange={() => {}}
+        onValueChange={onValueChange}
       >
         <Select.Item label="BPA" value="BPA" />
         <Select.Item label="Antibiótico" value="Antibiotico" />
@@ -34,44 +34,49 @@ export function Type({ placeholder }) {
   )
 }
 
-export function Supervision({ placeholder }) {
+export function Supervision({ placeholder, onValueChange }) {
   return (
     <FormControl mb={1}>
       <Select
         selectedValue={placeholder}
         bg={Colors.asphalt}
         fontSize="md"
-        h={16}
-        borderRadius={6}
+        h={12}
         minWidth="full"
-        accessibilityLabel={placeholder}
-        placeholder={placeholder}
+        borderRadius={6}
+        accessibilityLabel="Houve supervisão neste mês?"
+        placeholder="Houve supervisão neste mês?"
         mt={1}
-        onValueChange={() => {}}
+        color={Colors.champagne}
+        _selectedItem={{
+          bg: 'teal.600',
+          endIcon: <CheckIcon size="5" />,
+        }}
+        onValueChange={onValueChange}
       >
-        <Select.Item label="Sim" value="Sim" />
+        <Select.Item label="true" value="true" />
 
-        <Select.Item label="Não" value="Nao" />
+        <Select.Item label="false" value="false" />
       </Select>
     </FormControl>
   )
 }
-export function Input({ placeholder }) {
+export function Input({ placeholder, onChangeText, value }) {
   return (
-    <FormControl mb={1}>
-      <NativeBaseInput
-        bg={Colors.asphalt}
-        fontSize="md"
-        color={Colors.champagneDark}
-        h={16}
-        borderRadius={6}
-        placeholder={placeholder}
-        _focus={{
-          bg: 'gray.200',
-          borderWidth: 1,
-          borderColor: 'green.200',
-        }}
-      />
-    </FormControl>
+    <NativeBaseInput
+      bg={Colors.asphalt}
+      fontSize="md"
+      color={Colors.champagneDark}
+      h={12}
+      borderRadius={6}
+      placeholder={placeholder}
+      _focus={{
+        bg: 'gray.100',
+        borderWidth: 1,
+        borderColor: 'green.200',
+      }}
+      value={value}
+      onChangeText={onChangeText}
+    />
   )
 }

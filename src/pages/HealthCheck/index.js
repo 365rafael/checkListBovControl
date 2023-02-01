@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 
-import {Container, TextList, Title, ButtonList} from './styles'
+import { Container, TextList, Title, ButtonList } from './styles'
 
 export default function HealthCheck() {
   const [healthStatus, setHealtStatus] = useState({})
@@ -10,7 +10,7 @@ export default function HealthCheck() {
   useEffect(() => {
     async function loadHealth() {
       try {
-        await api.get('healthCheck').then(function (response) {
+        await api.get('healthCheck').then((response) => {
           setHealtStatus(response.data)
 
           setLoading(false)
@@ -24,18 +24,14 @@ export default function HealthCheck() {
   }, [])
 
   if (loading) {
-    return (
-     
-        <TextList>Carregando detalhes...</TextList>
-      
-    )
+    return <Title>Carregando detalhes...</Title>
   }
   return (
     <Container>
       <Title>Status de saúde do gado:</Title>
-    <ButtonList>
-      <TextList>{healthStatus.status}</TextList>
-    </ButtonList>
+      <ButtonList>
+        <TextList>{healthStatus.status}</TextList>
+      </ButtonList>
     </Container>
   )
 }
