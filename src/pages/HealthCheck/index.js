@@ -19,7 +19,6 @@ export default function HealthCheck() {
         console.log('ERROR: ' + error)
       }
     }
-
     loadHealth()
   }, [])
 

@@ -6,6 +6,7 @@ import Home from './Home'
 import HealthCheck from './HealthCheck'
 import NewCheckList from './NewCheckList'
 import ButtonNew from '../components/ButtonNew'
+import UpdateCheckList from './UpdateCheckList'
 
 import Colors from '../styles/Colors'
 
@@ -57,6 +58,7 @@ function Routes() {
           ),
         }}
       />
+      
     </Tab.Navigator>
   )
 }

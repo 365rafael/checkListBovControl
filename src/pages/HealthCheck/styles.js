@@ -2,7 +2,7 @@ import styled from "styled-components/native"
 
 export const Container = styled.View`
 flex:1;
-justify-content: center;
+vertical-align: top;
 align-items: center;
 background-color: #bdc3c7;
 padding-top:10px;
@@ -16,7 +16,7 @@ margin-top:10px;
 margin-bottom:10px;
 `
 
-export const ButtonList = styled.TouchableOpacity`
+export const ButtonList = styled.View`
 background-color:#34495e;
 border:1px;
 min-width:300px;

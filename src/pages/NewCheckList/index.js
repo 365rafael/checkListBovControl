@@ -1,4 +1,5 @@
-import { VStack, Heading, Center } from 'native-base'
+import { VStack, Heading, Center, ScrollView } from 'native-base'
+import { ToastAndroid } from 'react-native'
 
 import { Type, Supervision, Input } from '../../components/Options'
 import { Button } from '../../components/ButtonForm'
@@ -8,7 +9,6 @@ import uuid from 'react-native-uuid'
 
 import api from '../../services/api'
 
-//import { postApi } from '../../services/post'
 
 export default function NewCheckList({
   placeholder,
@@ -18,6 +18,7 @@ export default function NewCheckList({
   bgButton,
   navigation,
   value,
+  keyboardType
 }) {
   const [type, setType] = useState('')
   const [hasSupervision, setHasSupervision] = useState(false)
@@ -38,15 +39,32 @@ export default function NewCheckList({
     } catch (error) {
       console.log('ERROR: ' + error)
     }
+    setValue()
+  }
+
+  function setValue(){
+    setAmount('')
+    setCity('')
+    setCows('')
+    setFarmer('')
+    setHasSupervision('')
+    setNameFarm('')
+    setSupervisor(false)
+    setType('')
   }
 
   function onNewCheckList() {
+    if(type === '' || hasSupervision === '' || farmer === '' || nameFarm === '' || city === '' || supervisor === '' || amount === '' || cows === '')
+    {
+      ToastAndroid.show('Por favor preencha todos os campos.', ToastAndroid.SHORT);
+      return
+    }
     setCheckList([
       {
         _id: uuid.v4(),
         type: type,
-        amount_of_milk_produced: amount,
-        number_of_cows_head: cows,
+        amount_of_milk_produced: amount.replace(',','.'),
+        number_of_cows_head: cows.replace(',','.'),
         farmer: {
           name: nameFarm,
           city: city,
@@ -68,14 +86,7 @@ export default function NewCheckList({
     console.log(checkList)
     postApi()
     alert('Cadastrado com sucesso!')
-    setAmount('')
-    setCity('')
-    setCows('')
-    setFarmer('')
-    setHasSupervision('')
-    setNameFarm('')
-    setSupervisor(false)
-    setType('')
+    
     navigation.navigate('Home')
   }
 
@@ -85,10 +96,12 @@ export default function NewCheckList({
         <Heading my={10} color={Colors.asphaltDark}>
           Check List
         </Heading>
+        <ScrollView>
+
         <Type
           placeholder={type}
           onValueChange={(itemValue) => setType(itemValue)}
-        />
+          />
         <Supervision
           placeholder={hasSupervision}
           value={hasSupervision}
@@ -98,37 +111,41 @@ export default function NewCheckList({
           placeholder="Nome do fazendeiro"
           value={farmer}
           onChangeText={(text) => setFarmer(text)}
-        />
+          />
         <Input
           placeholder="Nome da fazenda"
           value={nameFarm}
           onChangeText={(text) => setNameFarm(text)}
-        />
+          />
         <Input
           placeholder="Nome da cidade"
           value={city}
           onChangeText={(text) => setCity(text)}
-        />
+          />
         <Input
           placeholder="Nome do supervisor"
           value={supervisor}
           onChangeText={(text) => setSupervisor(text)}
-        />
+          />
         <Input
           placeholder="Quantidade leite produzido no mês"
+          keyboardType='numeric'
           value={amount}
           onChangeText={(text) => setAmount(text)}
-        />
+          />
         <Input
+        
           placeholder="Quantidade cabeças de gado"
           value={cows}
+          keyboardType='numeric'
           onChangeText={(text) => setCows(text)}
-        />
+          />
         <Button
           placeholder="Cadastrar"
           onPress={onNewCheckList}
           bgButton={Colors.blueDark}
-        />
+          />
+          </ScrollView>
       </Center>
     </VStack>
   )

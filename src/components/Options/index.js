@@ -61,22 +61,26 @@ export function Supervision({ placeholder, onValueChange }) {
     </FormControl>
   )
 }
-export function Input({ placeholder, onChangeText, value }) {
+export function Input({ placeholder, onChangeText, value, keyboardType }) {
   return (
     <NativeBaseInput
+      keyboardType={keyboardType}
       bg={Colors.asphalt}
       fontSize="md"
-      color={Colors.champagneDark}
+      color={Colors.champagne}
       h={12}
       borderRadius={6}
       placeholder={placeholder}
       _focus={{
         bg: 'gray.100',
-        borderWidth: 1,
-        borderColor: 'green.200',
+        borderWidth: 2,
+        color:'black',
+        borderColor: 'white',
       }}
       value={value}
       onChangeText={onChangeText}
+      isRequired
+      
     />
   )
 }

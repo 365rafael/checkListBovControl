@@ -41,6 +41,10 @@ export default function CheckLists({ navigation }) {
       data.getDate() + '/' + (data.getMonth() + 1) + '/' + data.getFullYear()
     return dataFormat
   }
+  function onUpdate(item){
+    console.log(item._id)
+  }
+
   return (
     <Container>
       <Title>CheckLists Criados:</Title>
@@ -49,9 +53,12 @@ export default function CheckLists({ navigation }) {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View>
-            <ButtonList>
+            <ButtonList onPress={({ item })=>onUpdate({item})}>
               <TextList>
-                {item.type} - Atualizado: {formatDate()}
+                {item.type} - Criado: {formatDate(item.created_at)}
+              </TextList>
+              <TextList>
+               Atualizado: {formatDate(item.updated_at)}
               </TextList>
             </ButtonList>
           </View>
