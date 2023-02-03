@@ -1,6 +1,6 @@
-import { View, Text, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { View, FlatList } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 
 import { Container, Title, ButtonList, TextList } from './styles'
 
@@ -11,22 +11,28 @@ export default function CheckLists() {
   const [checks, setCheks] = useState([{}])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    async function loadCheckLists() {
-      try {
-        await api.get('v1/checkList').then((response) => {
-          setCheks(response.data)
-          console.log(checks)
-          setLoading(false)
-        })
-      } catch (error) {
-        console.log('ERROR: ' + error)
+  useFocusEffect(
+    useCallback(() => {
+      async function loadCheckLists() {
+        try {
+          await api.get('v1/checkList').then((response) => {
+            setCheks(response.data)
+            console.log(checks)
+            setLoading(false)
+          })
+        } catch (error) {
+          console.log('ERROR: ' + error)
+        } finally {
+        }
       }
-    }
 
-    loadCheckLists()
-    formatDate()
-  }, [])
+      showToasts = () => {
+        Toast.success('Lista atualizada!')
+      }
+      loadCheckLists()
+      formatDate()
+    }, [])
+  )
 
   if (loading) {
     return (
@@ -50,7 +56,11 @@ export default function CheckLists() {
 
   return (
     <Container>
-      <Title>CheckLists Criados:</Title>
+      {checks.length == 0 ? (
+        <Title>Nenhum checklist ativo:</Title>
+      ) : (
+        <Title>CheckLists Criados:</Title>
+      )}
       <FlatList
         data={checks}
         showsVerticalScrollIndicator={false}

@@ -18,9 +18,10 @@ export default function NewCheckList({ navigation }) {
   const [supervisor, setSupervisor] = useState('')
   const [amount, setAmount] = useState('')
   const [cows, setCows] = useState('')
-  const [checkList, setCheckList] = useState([{}])
+  const [checkList, setCheckList] = useState({})
 
   async function postApi() {
+    console.log('Cadastrando::', checkList)
     try {
       const response = await api.post('v1/checkList', checkList)
       console.log(response.data)
@@ -59,7 +60,7 @@ export default function NewCheckList({ navigation }) {
       )
       return
     }
-    setCheckList({
+    const data = {
       _id: uuid.v4(),
       type: type,
       amount_of_milk_produced: amount.replace(',', '.'),
@@ -81,10 +82,11 @@ export default function NewCheckList({ navigation }) {
       },
       created_at: new Date(),
       updated_at: new Date(),
-    })
+    }
+    setCheckList(data)
     postApi()
     alert('Cadastrado com sucesso!')
-    console.log('Enviado: ', checkList)
+    console.log('Enviado: ', data)
 
     navigation.navigate('Home')
   }

@@ -12,7 +12,7 @@ export default function HealthCheck() {
       try {
         await api.get('healthCheck').then((response) => {
           setHealtStatus(response.data)
-
+          console.log(healthStatus)
           setLoading(false)
         })
       } catch (error) {

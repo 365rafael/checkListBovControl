@@ -60,7 +60,7 @@ export default function UpdateCheckList({ route, navigation }) {
       )
       return
     }
-    setCheckList([
+    const data = [
       {
         type: type,
         amount_of_milk_produced: amount.replace(',', '.'),
@@ -79,7 +79,8 @@ export default function UpdateCheckList({ route, navigation }) {
 
         updated_at: new Date(),
       },
-    ])
+    ]
+    setCheckList(data)
     console.log('Botao atualizar: ', checkList)
     putApi()
     alert('Cadastro atualizado!')
