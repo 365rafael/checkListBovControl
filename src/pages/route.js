@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import { Entypo } from '@expo/vector-icons'
 
@@ -6,13 +7,22 @@ import Home from './Home'
 import HealthCheck from './HealthCheck'
 import NewCheckList from './NewCheckList'
 import ButtonNew from '../components/ButtonNew'
-import UpdateCheckList from './UpdateCheckList'
+import UpdateCheckList from './NewCheckList/UpdateCheckList'
 
 import Colors from '../styles/Colors'
 
 const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
-function Routes() {
+function Stacks() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="UpdateCheckList" component={UpdateCheckList} />
+    </Stack.Navigator>
+  )
+}
+function Tabs() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -29,8 +39,8 @@ function Routes() {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Inicio"
+        component={Stacks}
         options={{
           tabBarLabel: 'Início',
           tabBarIcon: ({ size, color }) => (
@@ -58,9 +68,12 @@ function Routes() {
           ),
         }}
       />
-      
     </Tab.Navigator>
   )
+}
+
+function Routes() {
+  return <Tabs />
 }
 
 export default Routes

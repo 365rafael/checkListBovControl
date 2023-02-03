@@ -9,17 +9,7 @@ import uuid from 'react-native-uuid'
 
 import api from '../../services/api'
 
-
-export default function NewCheckList({
-  placeholder,
-  onPress,
-  onValueChange,
-  onChangeText,
-  bgButton,
-  navigation,
-  value,
-  keyboardType
-}) {
+export default function NewCheckList({ navigation }) {
   const [type, setType] = useState('')
   const [hasSupervision, setHasSupervision] = useState(false)
   const [farmer, setFarmer] = useState('')
@@ -32,9 +22,8 @@ export default function NewCheckList({
 
   async function postApi() {
     try {
-      const response = await api
-        .post('v1/checkList', checkList)
-        .then((response) => console.log(response.data))
+      const response = await api.post('v1/checkList', checkList)
+      console.log(response.data)
       console.log('POST::', checkList)
     } catch (error) {
       console.log('ERROR: ' + error)
@@ -42,7 +31,7 @@ export default function NewCheckList({
     setValue()
   }
 
-  function setValue(){
+  function setValue() {
     setAmount('')
     setCity('')
     setCows('')
@@ -54,39 +43,49 @@ export default function NewCheckList({
   }
 
   function onNewCheckList() {
-    if(type === '' || hasSupervision === '' || farmer === '' || nameFarm === '' || city === '' || supervisor === '' || amount === '' || cows === '')
-    {
-      ToastAndroid.show('Por favor preencha todos os campos.', ToastAndroid.SHORT);
+    if (
+      type === '' ||
+      hasSupervision === '' ||
+      farmer === '' ||
+      nameFarm === '' ||
+      city === '' ||
+      supervisor === '' ||
+      amount === '' ||
+      cows === ''
+    ) {
+      ToastAndroid.show(
+        'Por favor preencha todos os campos.',
+        ToastAndroid.SHORT
+      )
       return
     }
-    setCheckList([
-      {
-        _id: uuid.v4(),
-        type: type,
-        amount_of_milk_produced: amount.replace(',','.'),
-        number_of_cows_head: cows.replace(',','.'),
-        farmer: {
-          name: nameFarm,
-          city: city,
-        },
-        from: {
-          name: farmer,
-        },
-        to: {
-          name: supervisor,
-        },
-        location: {
-          latitude: -123,
-          longitude: -456,
-        },
-        created_at: new Date(),
-        updated_at: new Date(),
+    setCheckList({
+      _id: uuid.v4(),
+      type: type,
+      amount_of_milk_produced: amount.replace(',', '.'),
+      number_of_cows_head: cows.replace(',', '.'),
+      had_supervision: hasSupervision,
+      farmer: {
+        name: nameFarm,
+        city: city,
       },
-    ])
-    console.log(checkList)
+      from: {
+        name: farmer,
+      },
+      to: {
+        name: supervisor,
+      },
+      location: {
+        latitude: -123,
+        longitude: -456,
+      },
+      created_at: new Date(),
+      updated_at: new Date(),
+    })
     postApi()
     alert('Cadastrado com sucesso!')
-    
+    console.log('Enviado: ', checkList)
+
     navigation.navigate('Home')
   }
 
@@ -97,55 +96,53 @@ export default function NewCheckList({
           Check List
         </Heading>
         <ScrollView>
-
-        <Type
-          placeholder={type}
-          onValueChange={(itemValue) => setType(itemValue)}
+          <Type
+            placeholder={type}
+            onValueChange={(itemValue) => setType(itemValue)}
           />
-        <Supervision
-          placeholder={hasSupervision}
-          value={hasSupervision}
-          onValueChange={(itemValue) => setHasSupervision(itemValue)}
-        />
-        <Input
-          placeholder="Nome do fazendeiro"
-          value={farmer}
-          onChangeText={(text) => setFarmer(text)}
+          <Supervision
+            placeholder={hasSupervision}
+            value={hasSupervision}
+            onValueChange={(itemValue) => setHasSupervision(itemValue)}
           />
-        <Input
-          placeholder="Nome da fazenda"
-          value={nameFarm}
-          onChangeText={(text) => setNameFarm(text)}
+          <Input
+            placeholder="Nome do fazendeiro"
+            value={farmer}
+            onChangeText={(text) => setFarmer(text)}
           />
-        <Input
-          placeholder="Nome da cidade"
-          value={city}
-          onChangeText={(text) => setCity(text)}
+          <Input
+            placeholder="Nome da fazenda"
+            value={nameFarm}
+            onChangeText={(text) => setNameFarm(text)}
           />
-        <Input
-          placeholder="Nome do supervisor"
-          value={supervisor}
-          onChangeText={(text) => setSupervisor(text)}
+          <Input
+            placeholder="Nome da cidade"
+            value={city}
+            onChangeText={(text) => setCity(text)}
           />
-        <Input
-          placeholder="Quantidade leite produzido no mês"
-          keyboardType='numeric'
-          value={amount}
-          onChangeText={(text) => setAmount(text)}
+          <Input
+            placeholder="Nome do supervisor"
+            value={supervisor}
+            onChangeText={(text) => setSupervisor(text)}
           />
-        <Input
-        
-          placeholder="Quantidade cabeças de gado"
-          value={cows}
-          keyboardType='numeric'
-          onChangeText={(text) => setCows(text)}
+          <Input
+            placeholder="Quantidade leite produzido no mês"
+            keyboardType="numeric"
+            value={amount}
+            onChangeText={(text) => setAmount(text)}
           />
-        <Button
-          placeholder="Cadastrar"
-          onPress={onNewCheckList}
-          bgButton={Colors.blueDark}
+          <Input
+            placeholder="Quantidade cabeças de gado"
+            value={cows}
+            keyboardType="numeric"
+            onChangeText={(text) => setCows(text)}
           />
-          </ScrollView>
+          <Button
+            placeholder="Cadastrar"
+            onPress={onNewCheckList}
+            bgButton={Colors.blueDark}
+          />
+        </ScrollView>
       </Center>
     </VStack>
   )

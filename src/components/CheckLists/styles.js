@@ -19,7 +19,7 @@ export const ButtonList = styled.TouchableOpacity`
 background-color:#34495e;
 border:1px;
 min-width:300px;
-height:50px;
+//height:50px;
 border-radius:8px
 margin:5px;
 margin-top:10px
